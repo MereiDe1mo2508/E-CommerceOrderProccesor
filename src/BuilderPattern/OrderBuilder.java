@@ -1,5 +1,6 @@
 package BuilderPattern;
 
+import ObserverPattern.OrderObserver;
 import StrategyPattern.PaymentStrategy;
 import model.*;
 
@@ -22,8 +23,8 @@ public class OrderBuilder {
         this.paymentStrategy = builder.paymentStrategy;
         this.observers = builder.observers;
     }
-    public int getOrder() {
-        return order;
+    public String getOrder() {
+        return order.getOrderId();
     }
     public Customer getCustomer() {
         return customer;
