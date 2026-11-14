@@ -23,7 +23,7 @@ public class OrderBuilder {
         this.paymentStrategy = builder.paymentStrategy;
         this.observers = builder.observers;
     }
-    public int getOrder() {
+    public String getOrder() {
         return order.getOrderId();
     }
     public Customer getCustomer() {
