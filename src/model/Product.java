@@ -3,6 +3,9 @@ package model;
 import java.math.BigDecimal;
 
 public abstract class Product {
+    private final String id;
+    private final String name;
+    private final BigDecimal price;
 
     protected Product(String id, String name, BigDecimal price) {
         this.id = id;

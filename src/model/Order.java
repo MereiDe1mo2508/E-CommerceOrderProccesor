@@ -23,7 +23,7 @@ public class Order implements OrderSubject {
         this.customer = Objects.requireNonNull(customer);
     }
 
-    public String getOrderId() {
+    public String getId() {
         return id;
     }
 

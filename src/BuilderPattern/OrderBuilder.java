@@ -24,7 +24,7 @@ public class OrderBuilder {
         this.observers = builder.observers;
     }
     public String getOrder() {
-        return order.getOrderId();
+        return order.getId();
     }
     public Customer getCustomer() {
         return customer;
