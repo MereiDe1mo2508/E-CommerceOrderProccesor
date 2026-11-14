@@ -26,13 +26,13 @@ public class InventoryObserver implements OrderObserver {
                 System.out.println("[Inventory] Not enough stock for " + item.getProduct().getName());
             }
         }
-        System.out.println("[Inventory] Stock reduced for order " + order.getOrderId());
+        System.out.println("[Inventory] Stock reduced for order " + order.getId());
     }
 
     private void releaseItems(Order order) {
         for (OrderItems item : order.getItems()) {
             inventory.release(item.getProduct(), item.getQuantity());
         }
-        System.out.println("[Inventory] Stock returned for order " + order.getOrderId());
+        System.out.println("[Inventory] Stock returned for order " + order.getId());
     }
 }
