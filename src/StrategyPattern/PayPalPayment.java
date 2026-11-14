@@ -3,12 +3,13 @@ package StrategyPattern;
 import java.math.BigDecimal;
 
 public class PayPalPayment implements PaymentStrategy {
-    private final String email;
+    private String email;
 
     public PayPalPayment(String email) {
         this.email = email;
     }
-
+    public PayPalPayment() {
+    }
     @Override
     public boolean pay(BigDecimal amount) {
         if (email == null || !email.contains("@")) {

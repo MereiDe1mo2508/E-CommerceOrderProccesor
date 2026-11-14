@@ -5,12 +5,12 @@ import model.OrderItems;
 import model.OrderStatus;
 
 public class InventoryObserver implements OrderObserver {
-    private final Inventory inventory;
+    private Inventory inventory;
 
     public InventoryObserver(Inventory inventory) {
         this.inventory = inventory;
     }
-
+    public InventoryObserver(){}
     @Override
     public void update(Order order) {
         if (order.getStatus() == OrderStatus.PAID) {
