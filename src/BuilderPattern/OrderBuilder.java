@@ -7,12 +7,12 @@ import model.*;
 import java.util.ArrayList;
 import java.util.List;
 public class OrderBuilder {
-    private final Order order;
-    private final Customer customer;
+    private Order order;
+    private Customer customer;
     private List<OrderItems> items = new ArrayList<>();
-    private final Address shippingAddress;
-    private final OrderStatus status;
-    private final PaymentStrategy paymentStrategy;
+    private Address shippingAddress;
+    private OrderStatus status;
+    private PaymentStrategy paymentStrategy;
     private List<OrderObserver> observers = new ArrayList<>();
     public OrderBuilder(Builder builder) {
         this.order = builder.order;
@@ -23,26 +23,48 @@ public class OrderBuilder {
         this.paymentStrategy = builder.paymentStrategy;
         this.observers = builder.observers;
     }
+    public OrderBuilder(){}
     public String getOrder() {
         return order.getId();
+    }
+    public void setOrder(Order order) {
+        this.order = order;
     }
     public Customer getCustomer() {
         return customer;
     }
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
     public List<OrderItems> getItems() {
         return items;
+    }
+    public void setItems(List<OrderItems> items) {
+        this.items = items;
     }
     public Address getShippingAddress() {
         return shippingAddress;
     }
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
     public OrderStatus getStatus() {
         return status;
+    }
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
     public PaymentStrategy getPaymentStrategy() {
         return paymentStrategy;
     }
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
     public List<OrderObserver> getObservers() {
         return observers;
+    }
+    public void setObservers(List<OrderObserver> observers) {
+        this.observers = observers;
     }
     public static class Builder {
         private Order order;
