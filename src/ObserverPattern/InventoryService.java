@@ -9,11 +9,11 @@ public class InventoryService implements Inventory {
     private final Map<String, Integer> stock = new HashMap<>();
 
     public void addStock(Product product, int qty) {
-        stock.merge(product.getId(), qty, Integer::sum);
+       stock.merge(product.getId(), qty, Integer::sum);
     }
-
+   
     public int getStock(Product product) {
-        return stock.getOrDefault(product.getId(), 0);
+       return stock.getOrDefault(product.getId(), 0);
     }
 
     @Override
