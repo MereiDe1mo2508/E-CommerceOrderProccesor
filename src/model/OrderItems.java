@@ -16,7 +16,4 @@ public class OrderItems {
     public void setQty(int qty) {
         this.qty = qty;
     }
-    public double getSubtotal() {
-        return product.getPrice() * qty;
-    }
 }
