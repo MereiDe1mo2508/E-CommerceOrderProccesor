@@ -6,12 +6,11 @@ public class CardPayment implements PaymentStrategy {
     private static final int CARD_LENGTH = 16;
     private static final int VISIBLE_DIGITS = 4;
 
-    private String cardNumber;
+    private final String cardNumber;
 
     public CardPayment(String cardNumber) {
         this.cardNumber = cardNumber;
     }
-    public CardPayment(){}
 
     @Override
     public boolean pay(BigDecimal amount) {
