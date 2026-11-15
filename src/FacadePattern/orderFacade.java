@@ -17,6 +17,7 @@ public class orderFacade {
     public InventoryService inventory;
 
     public Map<String, Order> orders;
+    private PaymentStrategy paymentStrategy;
 
     public orderFacade() {
         factory = new ProductFactory();
@@ -25,11 +26,13 @@ public class orderFacade {
     }
 
     public Order placeOrder(String orderId, Customer customer, Product product, int quantity, String paymentType) {
-        Order order = new Order(orderId, customer);
-        order.addItem(product, quantity);
-        order.attach(new EmailNotifier());
-        order.attach(new SmsNotifier());
-        order.attach(new InventoryObserver(inventory));
+        Order order = new OrderBuilder(orderId, customer)
+                .addItem(product, quantity)
+                .addObserver(new EmailNotifier())
+                .addObserver(new SmsNotifier())
+                .addObserver(new InventoryObserver(inventory))
+                .setPaymentStrategy(paymentStrategy)
+                .build();
         switch (paymentType.toLowerCase()) {
             case "card":
                 order.setPaymentStrategy(new CardPayment("1234567812345678"));
