@@ -1,5 +1,4 @@
 package FacadePattern;
-import FacadePattern.*;
 import FactoryPattern.ProductFactory;
 import ObserverPattern.InventoryService;
 import model.Customer;
@@ -10,7 +9,7 @@ import model.Product;
 import java.math.BigDecimal;
 
 public class OrderExecuteFacade {
-    orderFacade facade = new orderFacade();
+    OrderFacade facade = new OrderFacade();
     ProductFactory factory = new ProductFactory();
     Product phone = factory.createProduct("electronics", "P1", "iPhone 15", new BigDecimal("450000"));
     Product book = factory.createProduct("book", "P3", "Clean Code", new BigDecimal("12000"));
