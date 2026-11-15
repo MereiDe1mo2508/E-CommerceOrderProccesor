@@ -9,10 +9,6 @@ direction TB
 class Client
 
 %% ===== FACADE =====
-class OrderExecuteFacade { 
-    -OrderFacade orderFacade
-    +execute() void
-}
 class OrderFacade {
   -ProductFactory productFactory
   -InventoryService inventory
@@ -53,7 +49,6 @@ class Order {
   -String id
   -Customer customer
   -List~OrderItem~ items
-  -Address shippingAddress
   -OrderStatus status
   -PaymentStrategy paymentStrategy
   -List~OrderObserver~ observers
@@ -74,11 +69,6 @@ class Customer {
   -String name
   -String email
   -String phone
-}
-class Address {
-  -String city
-  -String street
-  -String zipCode
 }
 class OrderStatus {
   <<enumeration>>
@@ -136,8 +126,7 @@ class InventoryObserver {
 }
 
 %% ===== RELATIONSHIPS =====
-Client --> OrderExecuteFacade
-OrderExecuteFacade --> OrderFacade : uses
+Client --> OrderFacade
 OrderFacade ..> ProductFactory : uses
 OrderFacade ..> OrderBuilder : uses
 OrderFacade ..> InventoryService : uses
@@ -170,8 +159,7 @@ OrderObserver <|.. InventoryObserver
 Order o-- "0..*" OrderObserver : observers
 InventoryObserver ..> InventoryService
 
-note for OrderExecute "FACADE: one simple execution to client"
-note for OrderFacade "FACADE: used to be one of it but it still needs to execute some of it"
+note for OrderFacade "FACADE: one simple execution to client"
 note for ProductFactory "FACTORY: creates necessary type of Product"
 note for OrderBuilder "BUILDER: collect Order step-by-step"
 note for PaymentStrategy "STRATEGY: different types of payment"
@@ -181,7 +169,7 @@ note for OrderObserver "OBSERVER: notification during status changes"
 
 ## How Patterns work together
 
-1. `Client` calls only `OrderExecuteFacade` that will call `OrderFacade.placeOrder(...)`.
+1. `Client` calls only `OrderFacade` that will call `OrderFacade.placeOrder(...)`, `Product` and `Customer`.
 2. Facade uses **Factory**, to create `Product`.
 3. Facade uses **Builder**, to collect `Order`.
 4. Facade chooses **Strategy** payment type (or **Adapter**, if it's external gateway).
