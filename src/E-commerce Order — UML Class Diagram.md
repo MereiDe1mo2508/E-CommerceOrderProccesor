@@ -9,6 +9,10 @@ direction TB
 class Client
 
 %% ===== FACADE =====
+class OrderExecuteFacade { 
+    -OrderFacade orderFacade
+    +execute() void
+}
 class OrderFacade {
   -ProductFactory productFactory
   -InventoryService inventory
@@ -132,7 +136,8 @@ class InventoryObserver {
 }
 
 %% ===== RELATIONSHIPS =====
-Client --> OrderFacade
+Client --> OrderExecuteFacade
+OrderExecuteFacade --> OrderFacade : uses
 OrderFacade ..> ProductFactory : uses
 OrderFacade ..> OrderBuilder : uses
 OrderFacade ..> InventoryService : uses
@@ -165,19 +170,20 @@ OrderObserver <|.. InventoryObserver
 Order o-- "0..*" OrderObserver : observers
 InventoryObserver ..> InventoryService
 
-note for OrderFacade "FACADE: один простой вход для клиента"
-note for ProductFactory "FACTORY: создаёт нужный тип Product"
-note for OrderBuilder "BUILDER: собирает Order по шагам"
-note for PaymentStrategy "STRATEGY: разные способы оплаты"
-note for GatewayPaymentAdapter "ADAPTER: подгоняет чужой API под PaymentStrategy"
-note for OrderObserver "OBSERVER: уведомления при смене статуса"
+note for OrderExecute "FACADE: one simple execution to client"
+note for OrderFacade "FACADE: used to be one of it but it still needs to execute some of it"
+note for ProductFactory "FACTORY: creates necessary type of Product"
+note for OrderBuilder "BUILDER: collect Order step-by-step"
+note for PaymentStrategy "STRATEGY: different types of payment"
+note for GatewayPaymentAdapter "ADAPTER: calls external API for PaymentStrategy"
+note for OrderObserver "OBSERVER: notification during status changes"
 ```
 
-## Как паттерны работают вместе
+## How Patterns work together
 
-1. `Client` вызывает только `OrderFacade.placeOrder(...)`.
-2. Facade использует **Factory**, чтобы создать `Product`.
-3. Facade использует **Builder**, чтобы собрать `Order`.
-4. Facade выбирает **Strategy** оплаты (или **Adapter**, если это внешний gateway).
-5. Facade подключает **Observer**-ов (Email, SMS, Inventory).
-6. Когда `Order.setStatus(...)` меняется, все Observer-ы получают `update()`.
+1. `Client` calls only `OrderExecuteFacade` that will call `OrderFacade.placeOrder(...)`.
+2. Facade uses **Factory**, to create `Product`.
+3. Facade uses **Builder**, to collect `Order`.
+4. Facade chooses **Strategy** payment type (or **Adapter**, if it's external gateway).
+5. Facade connects with **Observer**s (Email, SMS, Inventory).
+6. When `Order.setStatus(...)` changes, all Observers get `update()`.

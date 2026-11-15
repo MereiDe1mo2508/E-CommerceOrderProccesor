@@ -16,6 +16,7 @@ public class OrderExecuteFacade {
     Product book = factory.createProduct("book", "P3", "Clean Code", new BigDecimal("12000"));
     InventoryService inventory = facade.inventory;
     Customer customer = new Customer(1, "Aibek", "aibek@mail.com", "+77001234567");
+    Customer customer2 = new Customer(2, "Dariya", "dariya@mail.com", "+77759876543");
     public void execute() {
         inventory.addStock(phone, 10);
         inventory.addStock(book, 20);
@@ -31,8 +32,22 @@ public class OrderExecuteFacade {
         facade.trackOrder("O-1");
 
         System.out.println("\n=== CANCEL ORDER ===");
-        facade.cancelOrder("O-1");
-        facade.trackOrder("O-1");
+        facade.cancelOrder("O-2");
+        facade.trackOrder("O-2");
+
+        System.out.println("\n=== PLACE ORDER ===");
+        facade.placeOrder("O-2", customer2, book, 2, "external"
+        );
+
+        System.out.println("\n=== TRACK ORDER ===");
+        facade.trackOrder("O-2");
+        Order order2 = facade.orders.get("O-2");
+        order.setStatus(OrderStatus.SHIPPED);
+        facade.trackOrder("O-2");
+
+        System.out.println("\n=== CANCEL ORDER ===");
+        facade.cancelOrder("O-2");
+        facade.trackOrder("O-2");
     }
 
 }
