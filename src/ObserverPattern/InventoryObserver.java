@@ -5,12 +5,12 @@ import model.OrderItem;
 import model.OrderStatus;
 
 public class InventoryObserver implements OrderObserver {
-    private Inventory inventory;
+    private final Inventory inventory;
 
     public InventoryObserver(Inventory inventory) {
         this.inventory = inventory;
     }
-    public InventoryObserver(){}
+
     @Override
     public void update(Order order) {
         if (order.getStatus() == OrderStatus.PAID) {
@@ -21,12 +21,16 @@ public class InventoryObserver implements OrderObserver {
     }
 
     private void reserveItems(Order order) {
+        boolean allReserved = true;
         for (OrderItem item : order.getItems()) {
-            if(!inventory.reserve(item.getProduct(), item.getQuantity())) {
+            if (!inventory.reserve(item.getProduct(), item.getQuantity())) {
                 System.out.println("[Inventory] Not enough stock for " + item.getProduct().getName());
+                allReserved = false;
             }
         }
-        System.out.println("[Inventory] Stock reduced for order " + order.getId());
+        if (allReserved) {
+            System.out.println("[Inventory] Stock reduced for order " + order.getId());
+        }
     }
 
     private void releaseItems(Order order) {
