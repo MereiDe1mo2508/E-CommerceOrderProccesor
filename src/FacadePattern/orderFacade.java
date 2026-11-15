@@ -12,10 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class orderFacade {
-
     private ProductFactory factory;
     public InventoryService inventory;
-
     public Map<String, Order> orders;
     private PaymentStrategy paymentStrategy;
 
