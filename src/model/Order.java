@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Order implements OrderSubject {
     private final String id;
     private final Customer customer;
-    private final List<OrderItems> items = new ArrayList<>();
+    private final List<OrderItem> items = new ArrayList<>();
     private final List<OrderObserver> observers = new ArrayList<>();
     private OrderStatus status = OrderStatus.CREATED;
     private PaymentStrategy paymentStrategy;
@@ -30,12 +30,12 @@ public class Order implements OrderSubject {
     public Customer getCustomer() { return customer; }
     public OrderStatus getStatus() { return status; }
 
-    public List<OrderItems> getItems() {
+    public List<OrderItem> getItems() {
         return Collections.unmodifiableList(items);
     }
 
     public void addItem(Product product, int qty) {
-        items.add(new OrderItems(product, qty));
+        items.add(new OrderItem(product, qty));
     }
 
     public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
@@ -44,7 +44,7 @@ public class Order implements OrderSubject {
 
     public BigDecimal calculateTotal() {
         return items.stream()
-                .map(OrderItems::getSubtotal)
+                .map(OrderItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class OrderBuilder {
     private String orderId;
     private Customer customer;
-    private List<OrderItems> items = new ArrayList<>();
+    private List<OrderItem> items = new ArrayList<>();
     private List<OrderObserver> observers = new ArrayList<>();
     private PaymentStrategy paymentStrategy;
 
@@ -19,7 +19,7 @@ public class OrderBuilder {
     }
 
     public OrderBuilder addItem(Product product, int quantity) {
-        items.add(new OrderItems(product, quantity));
+        items.add(new OrderItem(product, quantity));
         return this;
     }
 
@@ -35,7 +35,7 @@ public class OrderBuilder {
 
     public Order build() {
         Order order = new Order(orderId, customer);
-        for (OrderItems item : items) {
+        for (OrderItem item : items) {
             order.addItem(item.getProduct(), item.getQuantity());
         }
         for (OrderObserver observer : observers) {

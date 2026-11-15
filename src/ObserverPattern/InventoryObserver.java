@@ -1,7 +1,7 @@
 package ObserverPattern;
 
 import model.Order;
-import model.OrderItems;
+import model.OrderItem;
 import model.OrderStatus;
 
 public class InventoryObserver implements OrderObserver {
@@ -21,7 +21,7 @@ public class InventoryObserver implements OrderObserver {
     }
 
     private void reserveItems(Order order) {
-        for (OrderItems item : order.getItems()) {
+        for (OrderItem item : order.getItems()) {
             if(!inventory.reserve(item.getProduct(), item.getQuantity())) {
                 System.out.println("[Inventory] Not enough stock for " + item.getProduct().getName());
             }
@@ -30,7 +30,7 @@ public class InventoryObserver implements OrderObserver {
     }
 
     private void releaseItems(Order order) {
-        for (OrderItems item : order.getItems()) {
+        for (OrderItem item : order.getItems()) {
             inventory.release(item.getProduct(), item.getQuantity());
         }
         System.out.println("[Inventory] Stock returned for order " + order.getId());
