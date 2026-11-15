@@ -18,6 +18,6 @@ public abstract class Product {
     public abstract String getCategory();
 
     public String getDescription() {
-        return getCategory() + ": "+ name + " (" + price.toPlainString() + " KZT";
+        return getCategory() + ": "+ name + " (" + price.toPlainString() + " KZT)";
     }
 }
