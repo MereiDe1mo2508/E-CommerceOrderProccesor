@@ -28,6 +28,7 @@ public class orderFacade {
                 .addItem(product, quantity)
                 .addObserver(new EmailNotifier())
                 .addObserver(new SmsNotifier())
+                .addObserver(new EmailNotifier())
                 .addObserver(new InventoryObserver(inventory))
                 .setPaymentStrategy(paymentStrategy)
                 .build();

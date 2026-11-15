@@ -6,5 +6,7 @@ public class EmailNotifier implements OrderObserver {
 
     @Override
     public void update(Order order) {
+        System.out.println("[Email] To " + order.getCustomer().getEmail() +
+                ": order " + order.getId() + " -> " + order.getStatus());
     }
 }
