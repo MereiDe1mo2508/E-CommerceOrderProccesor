@@ -3,6 +3,7 @@ package FactoryPattern;
 import model.BookProduct;
 import model.ClothingProduct;
 import model.ElectronicsProduct;
+import model.FoodProduct;
 import model.Product;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public final class ProductFactory {
         register("electronics", ElectronicsProduct::new);
         register("clothing", ClothingProduct::new);
         register("book", BookProduct::new);
+        register("food", FoodProduct::new);
     }
 
     public void register(String type, ProductCreator creator) {
