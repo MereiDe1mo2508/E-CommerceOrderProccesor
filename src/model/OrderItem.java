@@ -2,11 +2,11 @@ package model;
 
 import java.math.BigDecimal;
 
-public class OrderItems {
+public class OrderItem {
     private final Product product;
     private final int qty;
 
-    public OrderItems(Product product, int qty) {
+    public OrderItem(Product product, int qty) {
         if (qty <= 0) {
             throw new IllegalArgumentException("Quantity must be positive");
         }
